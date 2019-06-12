@@ -46,6 +46,18 @@ export default class App extends React.Component {
 
   render () {
     return (
+      <>
+      <div className="form-countainer">
+        <div className="inputs-section">
+          <label>Name</label> <input type="text" />
+          <label>Age</label> <input type="text" />
+          <label>Email</label> <input type="text" />
+        </div>
+        <div className="button-section">
+          <button>Add Friends</button>
+          <button>Delete Friends</button>
+        </div>
+      </div>
       <div className="friends-container">
         { /* equivalent to "if there is an errorMessage, display the following" */
           !!this.state.errorMessage && (
@@ -56,6 +68,7 @@ export default class App extends React.Component {
           !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} />
         }
       </div>
+      </>
     );
   }
 }

@@ -29,9 +29,69 @@
   color: #282c34;
 }
 
-.line-wrapper label{
+.friend-box.line-wrapper label{
   width: 30%;
   text-align: right;
   padding-right: 30px;
   font-weight: bolder;
+}
+
+.form-countainer {
+  background-color: lightgoldenrodyellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.form-countainer .inputs-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.form-countainer label {
+  text-align: right;
+  font-weight: bold;
+  padding: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.form-countainer input {
+  width: 20%;
+  padding: 5px;
+}
+
+.form-countainer input:focus {
+  outline: none;
+  border: 1px solid #282c34;
+}
+
+button {
+  border: 1px solid lightsalmon;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: lightsalmon;
+  font-size: 16px;
+  color: #282c34;
+  width: 150px;
+  border-radius: 5px;
+  color: white;
+  margin: 10px;
+}
+
+button:hover {
+  background-color: #FF5454;
+  border: 1px solid #FF5454;
+  transition: ease-in-out, width .35s ease-in-out;
+  width: 200px;   
+  outline: none;  
+}
+
+button:focus {
+  outline: none;
 }
