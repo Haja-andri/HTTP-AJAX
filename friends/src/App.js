@@ -2,19 +2,6 @@ import React from 'react';
 import FriendsList from './Components/FriendsList'
 import './App.css';
 
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <p>
-//           HTTP / AJAX Project here
-//         </p>
-//       </header>
-//     </div>
-//   );
-// }
-
 export default class App extends React.Component {
 
   state = {
@@ -55,7 +42,6 @@ export default class App extends React.Component {
         </div>
         <div className="button-section">
           <button>Add Friends</button>
-          <button>Delete Friends</button>
         </div>
       </div>
       <div className="friends-container">
