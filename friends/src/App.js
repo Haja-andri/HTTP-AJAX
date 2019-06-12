@@ -1,5 +1,7 @@
 import React from 'react';
+import FriendsList from './Components/FriendsList'
 import './App.css';
+
 
 // function App() {
 //   return (
@@ -51,13 +53,7 @@ export default class App extends React.Component {
           )
         }
         {
-          !!this.state.friendsData && (
-            <>
-            <label>Name :</label> <div>Jean</div>
-            <label>Age :</label> <div>39</div>
-            <label>email :</label> <div>jean@gmail.com</div>
-            </>
-          )
+          !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} />
         }
       </div>
     );
