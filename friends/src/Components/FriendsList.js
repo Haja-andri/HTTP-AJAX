@@ -6,11 +6,11 @@ export default function FriendsList (props) {
         <>
             {
             receivedFriendsData.map(friend =>(
-                <>
-                <label>Name :</label> <div>{friend.name}</div>
-                <label>Age :</label> <div>{friend.age}</div>
-                <label>email :</label> <div>{friend.email}</div>        
-                </>
+                <div className="friend-box">
+                <div className="friend-header">{friend.name}</div>
+                <div className="line-wrapper"><label>Age :</label> <div>{friend.age}</div></div>
+                <div className="line-wrapper"><label>email :</label> <div>{friend.email}</div></div>        
+                </div>
             ))
             }
         </>

@@ -46,7 +46,7 @@ export default class App extends React.Component {
 
   render () {
     return (
-      <div className="App-header">
+      <div className="friends-container">
         { /* equivalent to "if there is an errorMessage, display the following" */
           !!this.state.errorMessage && (
             <div>{this.state.errorMessage}</div>
