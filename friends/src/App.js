@@ -31,6 +31,15 @@ export default class App extends React.Component {
     this.fetchFriendsData();
   }
 
+  deleteFriend = (friendId) => {
+    const newFriendsData = this.state.friendsData.filter( friend => (
+      friend.id !== Number(friendId)
+    ));
+    this.setState({
+      friendsData: newFriendsData,
+    })
+  }
+
   render () {
     return (
       <>
@@ -51,7 +60,7 @@ export default class App extends React.Component {
           )
         }
         {
-          !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} />
+          !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} deleteFriend={this.deleteFriend} />
         }
       </div>
       </>
