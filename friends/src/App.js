@@ -16,12 +16,12 @@ import './App.css';
 export default class App extends React.Component {
 
   state = {
-    friendsData: [],
+    friendsData: null,
     errorMessage: ''
   }
 
   fetchFriendsData = () => {
-    fetch('http://localhost:5000/friens')
+    fetch('http://localhost:5000/friends')
   .then(response =>{
     return response.json();
   })
@@ -42,11 +42,24 @@ export default class App extends React.Component {
     this.fetchFriendsData();
   }
 
-
-
   render () {
     return (
-      <div className="App-header">Something here</div>
+      <div className="App-header">
+        { /* equivalent to "if there is an errorMessage, display the following" */
+          !!this.state.errorMessage && (
+            <div>{this.state.errorMessage}</div>
+          )
+        }
+        {
+          !!this.state.friendsData && (
+            <>
+            <label>Name :</label> <div>Jean</div>
+            <label>Age :</label> <div>39</div>
+            <label>email :</label> <div>jean@gmail.com</div>
+            </>
+          )
+        }
+      </div>
     );
   }
 }
