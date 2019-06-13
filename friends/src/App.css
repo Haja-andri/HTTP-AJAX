@@ -71,6 +71,8 @@
   align-items: center;
   padding: 20px;
   margin-bottom: 30px;
+  padding-top: 50px;
+  border-bottom: 10px solid lightsalmon;
 }
 
 .form-countainer .inputs-section {
