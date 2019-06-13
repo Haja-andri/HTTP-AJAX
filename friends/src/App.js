@@ -3,6 +3,7 @@ import axios from 'axios';
 import FriendsList from './Components/FriendsList';
 import './App.css';
 import InputForm from './Components/Form/Form';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const friendsApi = 'http://localhost:5000/friends';
 
@@ -109,27 +110,34 @@ export default class App extends React.Component {
 
   render () {
     return (
+      <Router>
       <>
-      <InputForm 
-        newFriendName={this.state.newFriendName}
-        newFriendAge={this.state.newFriendAge}
-        newFriendEmail={this.state.newFriendEmail}
-        inputHandler={this.inputHandler}
-        addNewFriend={this.addNewFriend}
-        currentMode={this.state.currentMode}
-      />
+        <Route 
+          exact path="/"
+          render= {props => (
+            <InputForm 
+              newFriendName={this.state.newFriendName}
+              newFriendAge={this.state.newFriendAge}
+              newFriendEmail={this.state.newFriendEmail}
+              inputHandler={this.inputHandler}
+              addNewFriend={this.addNewFriend}
+              currentMode={this.state.currentMode}
+            />
+          )}
+        />
 
-      <div className="friends-container">
-        { /* equivalent to "if there is an errorMessage, display the following" */
-          !!this.state.errorMessage && (
-            <div>{this.state.errorMessage}</div>
-          )
-        }
-        {
-          !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} deleteFriend={this.deleteFriend} editFriend={this.editFriend} />
-        }
-      </div>
+        <div className="friends-container">
+          { /* equivalent to "if there is an errorMessage, display the following" */
+            !!this.state.errorMessage && (
+              <div>{this.state.errorMessage}</div>
+            )
+          }
+          {
+            !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} deleteFriend={this.deleteFriend} editFriend={this.editFriend} />
+          }
+        </div>
       </>
+      </Router>
     );
   }
 }
