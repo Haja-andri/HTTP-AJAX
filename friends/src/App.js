@@ -111,12 +111,12 @@ export default class App extends React.Component {
     return (
       <>
       <InputForm 
-      newFriendName={this.state.newFriendName}
-      newFriendAge={this.state.newFriendAge}
-      newFriendEmail={this.state.newFriendEmail}
-      inputHandler={this.inputHandler}
-      addNewFriend={this.addNewFriend}
-      currentMode={this.state.currentMode}
+        newFriendName={this.state.newFriendName}
+        newFriendAge={this.state.newFriendAge}
+        newFriendEmail={this.state.newFriendEmail}
+        inputHandler={this.inputHandler}
+        addNewFriend={this.addNewFriend}
+        currentMode={this.state.currentMode}
       />
 
       <div className="friends-container">

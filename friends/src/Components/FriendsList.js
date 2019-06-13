@@ -4,12 +4,10 @@ export default function FriendsList (props) {
     
     const { friendsData, deleteFriend, editFriend } = props;
     const deleteThisFriend = (event) => {
-        const friendId = event.target.id;
-        deleteFriend(friendId);
+        deleteFriend(event.target.id);
     }
     const editThisFriend = (event) => {
-        const friendId = event.target.id;
-        editFriend(friendId);
+        editFriend(event.target.id);
     }
 
     return (
