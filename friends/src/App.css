@@ -1,0 +1,123 @@
+
+.friends-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: white;
+}
+
+
+.friend-box {
+  border: 5px solid lightyellow;
+  width: 25%;
+  min-width: 380px;
+  margin:10px;
+  padding: 10px;
+  background-color: lightseagreen;
+  border-radius: 5px;
+}
+
+.friend-header {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: lightgoldenrodyellow;
+  padding-bottom: 10px;
+}
+
+.friend-header span {
+  color: lightgreen;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.delete {
+  color: #FF5454;
+  font-weight: bold;
+  font-size: 22px;
+  text-align: right;
+}
+
+.line-wrapper {
+  display: flex;
+  padding: 10px;
+  border-bottom:1px dashed lightgoldenrodyellow;
+  color: #282c34;
+  width: 85%;
+}
+
+
+.line-wrapper label{
+  width: 20%;
+  text-align: right;
+  padding-right: 30px;
+  font-weight: bolder;
+}
+@media (max-width: 900px) { 
+  .line-wrapper {
+    flex-direction: column;
+    text-align: left;
+  }
+  .line-wrapper label{
+    text-align: left;
+  }
+}
+
+.form-countainer {
+  background-color: lightgoldenrodyellow;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 30px;
+  padding-top: 50px;
+  border-bottom: 10px solid lightsalmon;
+}
+
+.form-countainer .inputs-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.form-countainer label {
+  text-align: right;
+  font-weight: bold;
+  padding: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.form-countainer input {
+  width: 20%;
+  padding: 5px;
+}
+
+.form-countainer input:focus {
+  outline: none;
+  border: 1px solid lightsalmon;
+}
+
+button {
+  border: 1px solid lightsalmon;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: lightsalmon;
+  font-size: 16px;
+  color: #282c34;
+  width: 150px;
+  border-radius: 5px;
+  color: white;
+  margin: 10px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #FF5454;
+  border: 1px solid #FF5454;
+  transition: ease-in-out, width .35s ease-in-out;
+  width: 200px;   
+  outline: none;  
+}
