@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import FriendsList from './Components/FriendsList';
 import './App.css';
+import InputForm from './Components/Form/Form';
 
 const friendsApi = 'http://localhost:5000/friends';
 
@@ -40,13 +41,6 @@ export default class App extends React.Component {
   }
 
   deleteFriend = (friendId) => {
-    // const newFriendsData = this.state.friendsData.filter( friend => (
-    //   friend.id !== Number(friendId)
-    // ));
-    // this.setState({
-    //   // Probably have to post here
-    //   friendsData: newFriendsData,
-    // })
     axios.delete(`${friendsApi}/${friendId}`)
     .then((res) => {
       this.setState({
@@ -54,10 +48,6 @@ export default class App extends React.Component {
       })
     })
   }
-
-  // addFriend = () => {
-  //   console.log('adding friend')
-  // }
 
   inputHandler = (event) => {
     if(event.target.name === 'name') this.setState({ newFriendName: event.target.value });
@@ -67,7 +57,6 @@ export default class App extends React.Component {
 
   addNewFriend = () => {
     const currentFriend = {
-      // id: this.state.friendsData.length + 1,
       name: this.state.newFriendName,
       age: this.state.newFriendAge,
       email: this.state.newFriendEmail,
@@ -107,7 +96,6 @@ export default class App extends React.Component {
       return friend.id === currentFriendId;
     })
 
-    // console.table(editedFriendData);
     // Load on form fields
     this.setState({
       currentMode: 'Update',
@@ -121,19 +109,15 @@ export default class App extends React.Component {
   render () {
     return (
       <>
-      <div className="form-countainer">
-        <div className="inputs-section">
-          <label>Name</label> 
-          <input value={this.state.newFriendName} onChange = {this.inputHandler} name="name" type='text'></input>
-          <label>Age</label> 
-          <input value={this.state.newFriendAge} onChange = {this.inputHandler} name="age" type='text'></input>
-          <label>Email</label> 
-          <input value={this.state.newFriendEmail} onChange = {this.inputHandler} name="email" type='text'></input>
-        </div>
-        <div className="button-section">
-          <button onClick={this.addNewFriend} >{this.state.currentMode} Friends</button>
-        </div>
-      </div>
+      <InputForm 
+      newFriendName={this.state.newFriendName}
+      newFriendAge={this.state.newFriendAge}
+      newFriendEmail={this.state.newFriendEmail}
+      inputHandler={this.inputHandler}
+      addNewFriend={this.addNewFriend}
+      currentMode={this.state.currentMode}
+      />
+
       <div className="friends-container">
         { /* equivalent to "if there is an errorMessage, display the following" */
           !!this.state.errorMessage && (
