@@ -9,6 +9,7 @@ export default class App extends React.Component {
 
   state = {
     friendsData: null,
+    currentMode: 'Add',
     errorMessage: '',
     newFriendName: '',
     newFriendAge: '',
@@ -83,6 +84,22 @@ export default class App extends React.Component {
     // 
   }
 
+  editFriend = (friendId) => {
+    // load selected friend data 
+    let editedFriendData = this.state.friendsData.find((friend) => {
+      return friend.id === Number(friendId);
+    })
+
+    // console.table(editedFriendData);
+    // Load on form fields
+    this.setState({
+      currentMode: 'Update',
+      newFriendName: editedFriendData.name,
+      newFriendAge: editedFriendData.age,
+      newFriendEmail: editedFriendData.email,
+    })
+  }
+
   render () {
     return (
       <>
@@ -96,7 +113,7 @@ export default class App extends React.Component {
           <input value={this.state.newFriendEmail} onChange = {this.inputHandler} name="email" type='text'></input>
         </div>
         <div className="button-section">
-          <button onClick={this.addNewFriend} >Add Friends</button>
+          <button onClick={this.addNewFriend} >{this.state.currentMode} Friends</button>
         </div>
       </div>
       <div className="friends-container">
@@ -106,7 +123,7 @@ export default class App extends React.Component {
           )
         }
         {
-          !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} deleteFriend={this.deleteFriend} />
+          !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} deleteFriend={this.deleteFriend} editFriend={this.editFriend} />
         }
       </div>
       </>
