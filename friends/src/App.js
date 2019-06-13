@@ -116,6 +116,7 @@ export default class App extends React.Component {
           path="/"
           render= {props => (
             <InputForm 
+              {...props}
               newFriendName={this.state.newFriendName}
               newFriendAge={this.state.newFriendAge}
               newFriendEmail={this.state.newFriendEmail}
@@ -138,6 +139,7 @@ export default class App extends React.Component {
             path="/"
             render={props =>(
               <FriendsList 
+                {...props}
                 friendsData={this.state.friendsData} 
                 deleteFriend={this.deleteFriend} 
                 editFriend={this.editFriend} 
