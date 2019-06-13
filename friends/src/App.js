@@ -56,37 +56,38 @@ export default class App extends React.Component {
   }
 
   addNewFriend = () => {
-    const currentFriend = {
-      name: this.state.newFriendName,
-      age: this.state.newFriendAge,
-      email: this.state.newFriendEmail,
-    };
-
-    if(this.state.currentMode === 'Add') {
-      axios.post(friendsApi, currentFriend)
-      .then(res => {
-        this.setState({
-          friendsData: res.data,
+    if(this.state.newFriendName !== '' && this.state.newFriendAge !== '' && this.state.newFriendEmail !== '') {
+      const currentFriend = {
+        name: this.state.newFriendName,
+        age: this.state.newFriendAge,
+        email: this.state.newFriendEmail,
+      };
+  
+      if(this.state.currentMode === 'Add') {
+        axios.post(friendsApi, currentFriend)
+        .then(res => {
+          this.setState({
+            friendsData: res.data,
+          })
         })
-      })
+      }
+      else if (this.state.currentMode === 'Update') {
+        axios.put(`${friendsApi}/${this.state.currentFriendId}`, currentFriend)
+        .then((res) =>{
+          this.setState({
+            friendsData: res.data,
+          })        
+        })
+      } 
+      // big cleaning
+      this.setState({
+        currentFriendId: null,
+        currentMode: 'Add',
+        newFriendName: '',
+        newFriendAge: '',
+        newFriendEmail: '',
+      })  
     }
-    else if (this.state.currentMode === 'Update') {
-      axios.put(`${friendsApi}/${this.state.currentFriendId}`, currentFriend)
-      .then((res) =>{
-        this.setState({
-          friendsData: res.data,
-        })        
-      })
-    } 
-    // big cleaning
-    this.setState({
-      currentFriendId: null,
-      currentMode: 'Add',
-      newFriendName: '',
-      newFriendAge: '',
-      newFriendEmail: '',
-    })  
-
   }
 
   editFriend = (friendId) => {
