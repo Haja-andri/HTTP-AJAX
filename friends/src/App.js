@@ -16,7 +16,7 @@ export default class App extends React.Component {
   }
 
   fetchFriendsData = () => {
-    fetch('http://localhost:5000/friends')
+    fetch(friendsApi)
   .then(response =>{
     return response.json();
   })
@@ -38,12 +38,18 @@ export default class App extends React.Component {
   }
 
   deleteFriend = (friendId) => {
-    const newFriendsData = this.state.friendsData.filter( friend => (
-      friend.id !== Number(friendId)
-    ));
-    this.setState({
-      // Probably have to post here
-      friendsData: newFriendsData,
+    // const newFriendsData = this.state.friendsData.filter( friend => (
+    //   friend.id !== Number(friendId)
+    // ));
+    // this.setState({
+    //   // Probably have to post here
+    //   friendsData: newFriendsData,
+    // })
+    axios.delete(`${friendsApi}/${friendId}`)
+    .then((res) => {
+      this.setState({
+        friendsData: res.data,
+      })
     })
   }
 
