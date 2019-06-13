@@ -10,6 +10,7 @@ export default class App extends React.Component {
   state = {
     friendsData: null,
     currentMode: 'Add',
+    currentFriendId: null,
     errorMessage: '',
     newFriendName: '',
     newFriendAge: '',
@@ -65,35 +66,52 @@ export default class App extends React.Component {
   }
 
   addNewFriend = () => {
-    const newFriend = {
+    const currentFriend = {
       // id: this.state.friendsData.length + 1,
       name: this.state.newFriendName,
       age: this.state.newFriendAge,
       email: this.state.newFriendEmail,
     };
-    
-    axios.post(friendsApi, newFriend)
-    .then(res => {
-      this.setState({
-        friendsData: res.data,
-        newFriendName: '',
-        newFriendAge: '',
-        newFriendEmail: '',
+
+    if(this.state.currentMode === 'Add') {
+      axios.post(friendsApi, currentFriend)
+      .then(res => {
+        this.setState({
+          friendsData: res.data,
+        })
       })
-    })
-    // 
+    }
+    else if (this.state.currentMode === 'Update') {
+      axios.put(`${friendsApi}/${this.state.currentFriendId}`, currentFriend)
+      .then((res) =>{
+        this.setState({
+          friendsData: res.data,
+        })        
+      })
+    } 
+    // big cleaning
+    this.setState({
+      currentFriendId: null,
+      currentMode: 'Add',
+      newFriendName: '',
+      newFriendAge: '',
+      newFriendEmail: '',
+    })  
+
   }
 
   editFriend = (friendId) => {
     // load selected friend data 
+    const currentFriendId = Number(friendId);
     let editedFriendData = this.state.friendsData.find((friend) => {
-      return friend.id === Number(friendId);
+      return friend.id === currentFriendId;
     })
 
     // console.table(editedFriendData);
     // Load on form fields
     this.setState({
       currentMode: 'Update',
+      currentFriendId: currentFriendId,
       newFriendName: editedFriendData.name,
       newFriendAge: editedFriendData.age,
       newFriendEmail: editedFriendData.email,
