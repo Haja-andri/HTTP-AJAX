@@ -89,11 +89,11 @@ export default class App extends React.Component {
       <div className="form-countainer">
         <div className="inputs-section">
           <label>Name</label> 
-          <input onChange = {this.inputHandler} name="name" type='text'></input>
+          <input value={this.state.newFriendName} onChange = {this.inputHandler} name="name" type='text'></input>
           <label>Age</label> 
-          <input onChange = {this.inputHandler} name="age" type='text'></input>
+          <input value={this.state.newFriendAge} onChange = {this.inputHandler} name="age" type='text'></input>
           <label>Email</label> 
-          <input onChange = {this.inputHandler} name="email" type='text'></input>
+          <input value={this.state.newFriendEmail} onChange = {this.inputHandler} name="email" type='text'></input>
         </div>
         <div className="button-section">
           <button onClick={this.addNewFriend} >Add Friends</button>
