@@ -1,6 +1,9 @@
 import React from 'react';
-import FriendsList from './Components/FriendsList'
+import axios from 'axios';
+import FriendsList from './Components/FriendsList';
 import './App.css';
+
+const friendsApi = 'http://localhost:5000/friends';
 
 export default class App extends React.Component {
 
@@ -56,19 +59,22 @@ export default class App extends React.Component {
 
   addNewFriend = () => {
     const newFriend = {
-      id: this.state.friendsData.length + 1,
+      // id: this.state.friendsData.length + 1,
       name: this.state.newFriendName,
       age: this.state.newFriendAge,
       email: this.state.newFriendEmail,
     };
     
-    this.state.friendsData.push(newFriend);
-
-    this.setState({
-      friendsData: this.state.friendsData,
-      // Probably have to post here
+    axios.post(friendsApi, newFriend)
+    .then(res => {
+      this.setState({
+        friendsData: res.data,
+        newFriendName: '',
+        newFriendAge: '',
+        newFriendEmail: '',
+      })
     })
-
+    // 
   }
 
   render () {
@@ -77,11 +83,11 @@ export default class App extends React.Component {
       <div className="form-countainer">
         <div className="inputs-section">
           <label>Name</label> 
-          <input value ={this.state.name} onChange = {this.inputHandler} name="name" type='text'></input>
+          <input onChange = {this.inputHandler} name="name" type='text'></input>
           <label>Age</label> 
-          <input value ={this.state.age} onChange = {this.inputHandler} name="age" type='text'></input>
+          <input onChange = {this.inputHandler} name="age" type='text'></input>
           <label>Email</label> 
-          <input value ={this.state.email} onChange = {this.inputHandler} name="email" type='text'></input>
+          <input onChange = {this.inputHandler} name="email" type='text'></input>
         </div>
         <div className="button-section">
           <button onClick={this.addNewFriend} >Add Friends</button>
