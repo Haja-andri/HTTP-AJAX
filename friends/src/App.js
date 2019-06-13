@@ -113,7 +113,7 @@ export default class App extends React.Component {
       <Router>
       <>
         <Route 
-          exact path="/"
+          path="/"
           render= {props => (
             <InputForm 
               newFriendName={this.state.newFriendName}
@@ -133,7 +133,17 @@ export default class App extends React.Component {
             )
           }
           {
-            !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} deleteFriend={this.deleteFriend} editFriend={this.editFriend} />
+            !!this.state.friendsData && 
+            <Route 
+            path="/"
+            render={props =>(
+              <FriendsList 
+                friendsData={this.state.friendsData} 
+                deleteFriend={this.deleteFriend} 
+                editFriend={this.editFriend} 
+              />
+            )}
+            />
           }
         </div>
       </>
