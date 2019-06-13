@@ -113,6 +113,7 @@ export default class App extends React.Component {
       <Router>
       <>
         <Route 
+          // Route management to be continued
           path="/"
           render= {props => (
             <InputForm 
@@ -136,6 +137,7 @@ export default class App extends React.Component {
           {
             !!this.state.friendsData && 
             <Route 
+            // Route management to be continued
             path="/"
             render={props =>(
               <FriendsList 

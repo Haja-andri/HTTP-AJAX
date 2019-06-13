@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function InputForm (props) {
     const { newFriendName, newFriendAge, newFriendEmail, inputHandler, addNewFriend, currentMode} = props;
-    return(
 
+    return(
         <form onSubmit={addNewFriend}>
         <div className="form-countainer">
             <div className="inputs-section">
