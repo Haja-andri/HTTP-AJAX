@@ -33,8 +33,7 @@
 
 .delete {
   color: #FF5454;
-  font-weight: bold;
-  font-size: 22px;
+  font-size: 26px;
   text-align: right;
 }
 
@@ -70,9 +69,12 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+  margin: 0 auto;
   margin-bottom: 30px;
   padding-top: 50px;
-  border-bottom: 10px solid lightsalmon;
+  border-bottom: 20px solid lightsalmon;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .form-countainer .inputs-section {
@@ -85,6 +87,7 @@
 .form-countainer label {
   text-align: right;
   font-weight: bold;
+  color: #333333;
   padding: 5px;
   padding-right: 20px;
   padding-left: 20px;
@@ -93,6 +96,8 @@
 .form-countainer input {
   width: 20%;
   padding: 5px;
+  font-size: 16px;
+  color: #666666;
 }
 
 .form-countainer input:focus {
@@ -102,22 +107,26 @@
 
 button {
   border: 1px solid lightsalmon;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   background-color: lightsalmon;
   font-size: 16px;
   color: #282c34;
-  width: 150px;
+  width: 200px;
   border-radius: 5px;
   color: white;
   margin: 10px;
   font-weight: bold;
 }
 
-button:hover {
+button:hover{
   background-color: #FF5454;
   border: 1px solid #FF5454;
   transition: ease-in-out, width .35s ease-in-out;
   width: 200px;   
+  outline: none;  
+}
+
+button:focus {
   outline: none;  
 }

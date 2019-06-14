@@ -1,11 +1,18 @@
 import React from 'react';
-import FriendsList from './Components/FriendsList'
+import axios from 'axios';
+import FriendsList from './Components/FriendsList';
 import './App.css';
+import InputForm from './Components/Form/Form';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+const friendsApi = 'http://localhost:5000/friends';
 
 export default class App extends React.Component {
 
   state = {
     friendsData: null,
+    currentMode: 'Add',
+    currentFriendId: null,
     errorMessage: '',
     newFriendName: '',
     newFriendAge: '',
@@ -13,7 +20,7 @@ export default class App extends React.Component {
   }
 
   fetchFriendsData = () => {
-    fetch('http://localhost:5000/friends')
+    fetch(friendsApi)
   .then(response =>{
     return response.json();
   })
@@ -35,18 +42,13 @@ export default class App extends React.Component {
   }
 
   deleteFriend = (friendId) => {
-    const newFriendsData = this.state.friendsData.filter( friend => (
-      friend.id !== Number(friendId)
-    ));
-    this.setState({
-      // Probably have to post here
-      friendsData: newFriendsData,
+    axios.delete(`${friendsApi}/${friendId}`)
+    .then((res) => {
+      this.setState({
+        friendsData: res.data,
+      })
     })
   }
-
-  // addFriend = () => {
-  //   console.log('adding friend')
-  // }
 
   inputHandler = (event) => {
     if(event.target.name === 'name') this.setState({ newFriendName: event.target.value });
@@ -55,49 +57,101 @@ export default class App extends React.Component {
   }
 
   addNewFriend = () => {
-    const newFriend = {
-      id: this.state.friendsData.length + 1,
-      name: this.state.newFriendName,
-      age: this.state.newFriendAge,
-      email: this.state.newFriendEmail,
-    };
-    
-    this.state.friendsData.push(newFriend);
+    if(this.state.newFriendName !== '' && this.state.newFriendAge !== '' && this.state.newFriendEmail !== '') {
+      const currentFriend = {
+        name: this.state.newFriendName,
+        age: this.state.newFriendAge,
+        email: this.state.newFriendEmail,
+      };
+  
+      if(this.state.currentMode === 'Add') {
+        axios.post(friendsApi, currentFriend)
+        .then(res => {
+          this.setState({
+            friendsData: res.data,
+          })
+        })
+      }
+      else if (this.state.currentMode === 'Update') {
+        axios.put(`${friendsApi}/${this.state.currentFriendId}`, currentFriend)
+        .then((res) =>{
+          this.setState({
+            friendsData: res.data,
+          })        
+        })
+      } 
+      // big cleaning
+      this.setState({
+        currentFriendId: null,
+        currentMode: 'Add',
+        newFriendName: '',
+        newFriendAge: '',
+        newFriendEmail: '',
+      })  
+    }
+  }
 
-    this.setState({
-      friendsData: this.state.friendsData,
-      // Probably have to post here
+  editFriend = (friendId) => {
+    // load selected friend data 
+    const currentFriendId = Number(friendId);
+    let editedFriendData = this.state.friendsData.find((friend) => {
+      return friend.id === currentFriendId;
     })
 
+    // Load on form fields
+    this.setState({
+      currentMode: 'Update',
+      currentFriendId: currentFriendId,
+      newFriendName: editedFriendData.name,
+      newFriendAge: editedFriendData.age,
+      newFriendEmail: editedFriendData.email,
+    })
   }
 
   render () {
     return (
+      <Router>
       <>
-      <div className="form-countainer">
-        <div className="inputs-section">
-          <label>Name</label> 
-          <input value ={this.state.name} onChange = {this.inputHandler} name="name" type='text'></input>
-          <label>Age</label> 
-          <input value ={this.state.age} onChange = {this.inputHandler} name="age" type='text'></input>
-          <label>Email</label> 
-          <input value ={this.state.email} onChange = {this.inputHandler} name="email" type='text'></input>
+        <Route 
+          // Route management to be continued
+          path="/"
+          render= {props => (
+            <InputForm 
+              {...props}
+              newFriendName={this.state.newFriendName}
+              newFriendAge={this.state.newFriendAge}
+              newFriendEmail={this.state.newFriendEmail}
+              inputHandler={this.inputHandler}
+              addNewFriend={this.addNewFriend}
+              currentMode={this.state.currentMode}
+            />
+          )}
+        />
+
+        <div className="friends-container">
+          { /* equivalent to "if there is an errorMessage, display the following" */
+            !!this.state.errorMessage && (
+              <div>{this.state.errorMessage}</div>
+            )
+          }
+          {
+            !!this.state.friendsData && 
+            <Route 
+            // Route management to be continued
+            path="/"
+            render={props =>(
+              <FriendsList 
+                {...props}
+                friendsData={this.state.friendsData} 
+                deleteFriend={this.deleteFriend} 
+                editFriend={this.editFriend} 
+              />
+            )}
+            />
+          }
         </div>
-        <div className="button-section">
-          <button onClick={this.addNewFriend} >Add Friends</button>
-        </div>
-      </div>
-      <div className="friends-container">
-        { /* equivalent to "if there is an errorMessage, display the following" */
-          !!this.state.errorMessage && (
-            <div>{this.state.errorMessage}</div>
-          )
-        }
-        {
-          !!this.state.friendsData && <FriendsList friendsData={this.state.friendsData} deleteFriend={this.deleteFriend} />
-        }
-      </div>
       </>
+      </Router>
     );
   }
 }

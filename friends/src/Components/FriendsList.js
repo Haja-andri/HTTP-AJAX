@@ -1,22 +1,28 @@
-import React from 'react'
+import React from 'react';
+import Friend from './Friend/Friend'
 
 export default function FriendsList (props) {
     
-    const { friendsData, deleteFriend } = props;
+    const { friendsData, deleteFriend, editFriend } = props;
     const deleteThisFriend = (event) => {
-        const friendId = event.target.id;
-        deleteFriend(friendId);
+        deleteFriend(event.target.id);
     }
+    const editThisFriend = (event) => {
+        editFriend(event.target.id);
+    }
+
     return (
         <>
             {
             friendsData.map(friend =>(
-                <div className="friend-box" key={friend.id}>
-                <div className="delete" onClick={deleteThisFriend} id={friend.id}>x</div>
-                <div className="friend-header">{friend.name} <span onClick="">| Edit</span></div>
-                <div className="line-wrapper"><label>Age :</label> <div>{friend.age}</div></div>
-                <div className="line-wrapper"><label>email :</label> <div>{friend.email}</div></div>        
-                </div>
+                <Friend 
+                    id={friend.id}
+                    deleteThisFriend={deleteThisFriend}
+                    name={friend.name}
+                    editThisFriend={editThisFriend}
+                    age={friend.age}
+                    email={friend.email}
+                />
             ))
             }
         </>
